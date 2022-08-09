@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">renld</string>
+    <string name="tv_input">输入文件</string>
+    <string name="tv_chose_file">选择输入文件所在位置</string>
+</resources>
