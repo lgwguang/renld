@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainAdapter: MainAdapter
 
     lateinit var launcher: ActivityResultLauncher<Intent>
-    lateinit var launcher0: ActivityResultLauncher<Array<String>>
 
-    //var launcher: ActivityResultLauncher<Array<String>>? = null
     var list: MutableList<MainData> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -56,22 +54,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun startFile() {
+    fun startPage(position: Int) {
+        when(position){
+            0->{
+                goFiles()
+            }
+            else->{
+                Toast.makeText(this,"正在开发中",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun goFiles(){
         var rxPermission = RxPermissions(this)
         rxPermission.request(Manifest.permission.READ_EXTERNAL_STORAGE)
             .subscribe {
                 if (it) {
                     val uri: Uri =
                         Uri.parse("content://com.android.externalstorage.documents/document/")
-                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                    intent.addCategory(Intent.CATEGORY_OPENABLE)
-                    intent.type = "*/*"
-                    intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+                    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "*/*"
+                        putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+                    }
                     launcher.launch(intent)
                 } else {
-                    Toast.makeText(this, "需要权限才能继续。", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "需要权限才能继续", Toast.LENGTH_SHORT).show()
                 }
             }
-
     }
+
+
 }

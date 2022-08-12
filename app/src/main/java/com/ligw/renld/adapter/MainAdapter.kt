@@ -44,7 +44,7 @@ class MainAdapter(var activity: MainActivity, var list: MutableList<MainData>): 
         holder.binding.textView6.text = list.get(position).desc
         holder.binding.imageView.setImageResource(list.get(position).bg)
         holder.binding.rlItem.setOnClickListener{
-            activity.startFile()
+            activity.startPage(position)
         }
     }
 
