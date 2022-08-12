@@ -65,6 +65,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 打开文件夹
+     */
     fun goFiles(){
         var rxPermission = RxPermissions(this)
         rxPermission.request(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -75,7 +78,8 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                         addCategory(Intent.CATEGORY_OPENABLE)
                         type = "*/*"
-                        putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+                        //DocumentsContract.EXTRA_INITIAL_URI
+                        putExtra(Intent.ACTION_OPEN_DOCUMENT, uri)
                     }
                     launcher.launch(intent)
                 } else {
