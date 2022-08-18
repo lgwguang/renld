@@ -20,30 +20,33 @@ import com.ligw.renld.entity.MainData
  * @author created by ligw on 2022/8/8
  * @Email ligw@wanbu.com.cn
  */
-class MainAdapter(var activity: MainActivity, var list: MutableList<MainData>): Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(var activity: MainActivity, var list: MutableList<MainData>) :
+    Adapter<MainAdapter.MainViewHolder>() {
 
     class MainViewHolder(binding: ItemMainBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding:ItemMainBinding
+        var binding: ItemMainBinding
+
         init {
             this.binding = binding
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        var binding:ItemMainBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.item_main,
-            parent,
-            false
+        return MainViewHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_main,
+                parent,
+                false
+            )
         )
-        return MainViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.binding.textView5.text = list.get(position).title
         holder.binding.textView6.text = list.get(position).desc
         holder.binding.imageView.setImageResource(list.get(position).bg)
-        holder.binding.rlItem.setOnClickListener{
+        holder.binding.rlItem.setOnClickListener {
             activity.startPage(position)
         }
     }

@@ -2,7 +2,9 @@ package com.ligw.renld.view
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -27,6 +29,7 @@ class MyView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeWidth = 2.0f
         isAntiAlias = true
+        pathEffect = DashPathEffect(floatArrayOf(10f,10f),0f)
         color = ContextCompat.getColor(context,R.color.teal_200)
     }
 
@@ -43,8 +46,16 @@ class MyView @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas?.apply {
             drawAxises(this)
+            drawText(this)
         }
 
+    }
+
+    private fun drawText(canvas: Canvas) {
+        paint.apply {
+            textSize = 20f
+        }
+        canvas.drawText("中国北京",100F,100F,paint)
     }
 
     fun drawAxises(canvas: Canvas) {
@@ -57,8 +68,9 @@ class MyView @JvmOverloads constructor(
         }
 
         canvas.withTranslation(mWidth / 2, mHeight * 3 / 4) {
-            drawCircle(0f,0f,mHeight/4,paintCircle)
+            drawCircle(0f,0f,mHeight/4 - 20 ,paintCircle)
         }
-
+//        canvas.drawBitmap()
+        var icon = BitmapDrawable()
     }
 }
